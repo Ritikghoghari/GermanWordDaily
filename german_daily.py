@@ -218,7 +218,20 @@ def main():
         # Fallback to local if AI failed or wasn't used
         if (not use_ai or not ai_success) and local_data:
             print("Using Local Data for Lesson...")
-            for _ in range(args.count):
+            
+            # --- FALLBACK GRAMMAR (Hardcoded to ensure they always get one) ---
+            fallback_grammar = [
+                { "category": "grammar", "topic": "Capitalization", "explanation": "In German, ALL Nouns are capitalized.", "example": "der Tisch (Table), die Freiheit (Freedom).", "video_search_term": "German noun capitalization" },
+                { "category": "grammar", "topic": "Articles (Der/Die/Das)", "explanation": "German has 3 genders: Masculine (der), Feminine (die), Neutral (das).", "example": "Der Mann, Die Frau, Das Kind.", "video_search_term": "German articles der die das" },
+                { "category": "grammar", "topic": "Formal 'Sie'", "explanation": "Use 'Sie' for strangers/bosses (Formal). Use 'Du' for friends (Informal).", "example": "Wie heißen Sie? vs Wie heißt du?", "video_search_term": "German formal vs informal you" },
+                { "category": "grammar", "topic": "Verb Position", "explanation": "In a main clause, the Verb is ALWAYS the 2nd element.", "example": "Ich *gehe* heute nach Hause.", "video_search_term": "German verb position 2nd" }
+            ]
+            
+            # Add 1 random grammar tip
+            messages.append(format_item_content(random.choice(fallback_grammar)))
+            
+            # Add vocabulary items for the rest of the count
+            for _ in range(args.count - 1): # -1 because we added grammar
                 selection = pick_random_item(local_data) # returns (category, item)
                 if selection:
                     cat, item = selection
@@ -227,7 +240,13 @@ def main():
         # Send Batch
         if messages:
             print(f"Sending {len(messages)} lesson items...")
-            current_chunk = "**🇩🇪 German Daily Lesson**"
+            
+            # Change Header based on Source
+            if ai_success:
+                current_chunk = "**🇩🇪 German Daily Lesson (AI Generated)**"
+            else:
+                current_chunk = "**🇩🇪 German Daily Lesson (Backup Mode)**"
+                
             for msg in messages:
                 separator = "\n\n"
                 to_add = separator + msg
