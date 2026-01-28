@@ -1,0 +1,47 @@
+24/01/2026  1:47:02.97 - Starting Quiz 
+Sending Quiz: phrases
+Discord notification sent successfully.
+24/01/2026  1:47:04.94 - Finished with code 0 
+24/01/2026  2:00:03.58 - Starting Quiz 
+Sending Quiz: words
+Discord notification sent successfully.
+24/01/2026  2:00:05.99 - Finished with code 0 
+24/01/2026  3:00:02.14 - Starting Quiz 
+Sending Quiz: verbs
+Discord notification sent successfully.
+24/01/2026  3:00:04.92 - Finished with code 0 
+24/01/2026 13:13:23.18 - Starting Quiz 
+Sending Quiz: idioms
+Discord notification sent successfully.
+24/01/2026 13:13:26.72 - Finished with code 0 
+24/01/2026 14:00:02.21 - Starting Quiz 
+Sending Quiz: idioms
+Discord notification sent successfully.
+24/01/2026 14:00:04.08 - Finished with code 0 
+25/01/2026 14:35:49.15 - Starting Quiz 
+^C25/01/2026 15:00:03.68 - Starting Quiz 
+Sending Quiz: idioms
+Discord notification sent successfully.
+25/01/2026 15:00:05.96 - Finished with code 0 
+26/01/2026 21:50:50.65 - Starting Quiz 
+26/01/2026 22:00:02.69 - Starting Quiz 
+^C26/01/2026 23:00:02.30 - Starting Quiz 
+Sending Quiz: verbs
+Discord notification sent successfully.
+26/01/2026 23:00:04.07 - Finished with code 0 
+27/01/2026  0:00:02.40 - Starting Quiz 
+Sending Quiz: idioms
+Discord notification sent successfully.
+27/01/2026  0:00:04.66 - Finished with code 0 
+27/01/2026  1:00:02.20 - Starting Quiz 
+Sending Quiz: phrases
+Discord notification sent successfully.
+27/01/2026  1:00:05.47 - Finished with code 0 
+28/01/2026  0:18:23.90 - Starting Quiz 
+Sending Quiz: phrases
+Discord notification sent successfully.
+28/01/2026  0:18:27.64 - Finished with code 0 
+28/01/2026  1:00:02.26 - Starting Quiz 
+Sending Quiz: idioms
+Discord notification sent successfully.
+28/01/2026  1:00:05.31 - Finished with code 0 

@@ -1,0 +1,42 @@
+[
+  {
+    "word": "gehen",
+    "meaning": "to go",
+    "v1": "gehen",
+    "v2": "ging",
+    "v3": "ist gegangen",
+    "sentence": "Ich gehe heute in die Schule."
+  },
+  {
+    "word": "sehen",
+    "meaning": "to see",
+    "v1": "sehen",
+    "v2": "sah",
+    "v3": "hat gesehen",
+    "sentence": "Ich sehe einen schönen Vogel."
+  },
+  {
+    "word": "machen",
+    "meaning": "to do / to make",
+    "v1": "machen",
+    "v2": "machte",
+    "v3": "hat gemacht",
+    "sentence": "Was machst du heute?"
+  },
+  {
+    "word": "kommen",
+    "meaning": "to come",
+    "v1": "kommen",
+    "v2": "kam",
+    "v3": "ist gekommen",
+    "sentence": "Wann kommst du nach Hause?"
+  },
+  {
+    "word": "essen",
+    "meaning": "to eat",
+    "v1": "essen",
+    "v2": "aß",
+    "v3": "hat gegessen",
+    "sentence": "Wir essen gerne Pizza."
+  }
+]

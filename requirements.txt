@@ -1,0 +1,3 @@
+plyer
+requests
+google-generativeai
