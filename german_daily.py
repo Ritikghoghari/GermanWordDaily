@@ -40,18 +40,21 @@ def generate_content_with_ai(count, mode, api_key):
         prompt = ""
         if mode == "lesson":
             prompt = f"""
-            Generate {count} unique, intermediate-level German vocabulary cards.
-            Mix of Verbs, Nouns (with article), and Phrases/Idioms.
-            Return ONLY a raw JSON list of objects. No markdown formatting.
+            Generate {count} items for a German lesson.
+            The list MUST include:
+            1. ONE Grammar Rule (with a short explanation and example).
+            2. The rest: Unique, intermediate-level Vocabulary (Verbs, Nouns, Idioms).
+            
+            Return ONLY a raw JSON list of objects. No markdown.
             Structure:
             [
+              {{ "category": "grammar", "topic": "Dative Prepositions", "explanation": "Aus, bei, mit, nach...", "example": "Ich gehe mit dem Hund.", "video_search_term": "German grammar Dative Prepositions" }},
               {{ "category": "verb", "word": "laufen", "meaning": "to run", "v1": "laufen", "v2": "lief", "v3": "ist gelaufen", "sentence": "Er läuft schnell." }},
-              {{ "category": "word", "word": "der Baum", "meaning": "the tree", "sentence": "Der Baum ist grün." }},
-              {{ "category": "idiom", "german": "Schwein haben", "english": "to be lucky", "literal": "to have pig" }}
+              {{ "category": "word", "word": "der Baum", "meaning": "the tree", "sentence": "Der Baum ist grün." }}
             ]
-            Ensure variety.
             """
         elif mode == "quiz":
+            # Quiz prompt remains the same
             prompt = f"""
             Generate 1 unique German quiz question.
             Return ONLY a raw JSON object. No markdown formatting.
@@ -94,8 +97,26 @@ def format_item_content(item):
     """Formats the item content based on its structure."""
     # Check keys to determine type (flexible for both AI and Local)
     
+    # Query parameter encoding helper
+    def encode_query(query):
+        return requests.utils.quote(query)
+
+    # Grammar
+    if 'topic' in item and 'explanation' in item:
+        video_link = ""
+        if 'video_search_term' in item:
+            safe_query = encode_query(item.get('video_search_term'))
+            url = f"https://www.youtube.com/results?search_query={safe_query}"
+            video_link = f"\n**📺 Watch Video** - [Click Here]({url})"
+            
+        return (
+            f"**📘 Grammar Rule** - {item.get('topic')}\n"
+            f"**Explanation** - {item.get('explanation')}\n"
+            f"**Example** - {item.get('example')}"
+            f"{video_link}"
+        )
     # Verb
-    if 'v1' in item and 'v2' in item:
+    elif 'v1' in item and 'v2' in item:
         return (
             f"**Verb** - {item.get('word')}\n"
             f"**Meaning** - {item.get('meaning')}\n"
