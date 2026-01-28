@@ -40,17 +40,17 @@ def generate_content_with_ai(count, mode, api_key):
         prompt = ""
         if mode == "lesson":
             prompt = f"""
-            Generate {count} items for a German lesson.
-            The list MUST include:
-            1. ONE Grammar Rule (with a short explanation and example).
-            2. The rest: Unique, intermediate-level Vocabulary (Verbs, Nouns, Idioms).
+            Task: Generate a JSON list of {count} German learning items.
+            Requirement: Item 1 MUST be a "grammar" rule. Items 2-{count} MUST be "vocabulary".
             
-            Return ONLY a raw JSON list of objects. No markdown.
-            Structure:
+            JSON Structure Constraints:
+            1. Grammar Object: {{ "category": "grammar", "topic": "Title", "explanation": "Short explanation", "example": "German example", "video_search_term": "German grammar SearchQuery" }}
+            2. Vocabulary Object: {{ "category": "word", "word": "Das Wort", "meaning": "English", "sentence": "Example sentence" }}
+            
+            Example Output:
             [
-              {{ "category": "grammar", "topic": "Dative Prepositions", "explanation": "Aus, bei, mit, nach...", "example": "Ich gehe mit dem Hund.", "video_search_term": "German grammar Dative Prepositions" }},
-              {{ "category": "verb", "word": "laufen", "meaning": "to run", "v1": "laufen", "v2": "lief", "v3": "ist gelaufen", "sentence": "Er läuft schnell." }},
-              {{ "category": "word", "word": "der Baum", "meaning": "the tree", "sentence": "Der Baum ist grün." }}
+              {{ "category": "grammar", "topic": "Accusative Prepositions", "explanation": "Durch, für, gegen...", "example": "Ich gehe durch den Park.", "video_search_term": "German accusative prepositions" }},
+              {{ "category": "word", "word": "der Tisch", "meaning": "the table", "sentence": "Der Tisch ist rot." }}
             ]
             """
         elif mode == "quiz":
