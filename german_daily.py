@@ -164,43 +164,43 @@ def main():
 
     # 2. Data Source Strategy
     use_ai = bool(gemini_key)
-    local_data = None
     
-    if not use_ai:
-        print("No Gemini API Key found. Using Local Data.")
-        data_path = os.path.join(base_dir, 'german_data.json')
-        local_data = load_json(data_path)
-        if not local_data:
-            print("Error: Local data not found.")
-            return
-    else:
+    # Always load local data as backup
+    data_path = os.path.join(base_dir, 'german_data.json')
+    local_data = load_json(data_path)
+    
+    if use_ai:
         print("Gemini API Key found. Using AI Generation.")
+    else:
+        print("No Gemini API Key found. Using Local Data.")
+        if not local_data:
+             print("Error: Local data not found.")
+             return
 
     # --- Mode: Lesson ---
     if args.mode in ['lesson', 'both']:
         messages = []
+        ai_success = False
         
         if use_ai:
             print("Requesting AI content...")
             items = generate_content_with_ai(args.count, "lesson", gemini_key)
             if items:
+                ai_success = True
                 # Ensure it's a list
                 if isinstance(items, dict): items = [items]
                 for item in items:
                     messages.append(format_item_content(item))
             else:
-                print("AI failed, falling back to local...")
-                # Fallback code could go here, but for now we just skip if AI fails
+                print("AI failed (returned None). Switching to local backup...")
                 
-        elif local_data:
+        # Fallback to local if AI failed or wasn't used
+        if (not use_ai or not ai_success) and local_data:
+            print("Using Local Data for Lesson...")
             for _ in range(args.count):
-                # category is unused in new pick_random_item logic (returns tuple if using old logic, but we updated it)
-                # Correction: The previous update to pick_random_item returns (category, item).
-                # We need to handle that.
                 selection = pick_random_item(local_data) # returns (category, item)
                 if selection:
                     cat, item = selection
-                    # format_item_content checks keys directly now
                     messages.append(format_item_content(item))
 
         # Send Batch
@@ -221,14 +221,19 @@ def main():
     # --- Mode: Quiz ---
     if args.mode in ['quiz', 'both']:
         msg_quiz = None
+        ai_success = False
         
         if use_ai:
              item = generate_content_with_ai(1, "quiz", gemini_key)
              if item:
+                 ai_success = True
                  # AI returns simple object {question, answer}
                  msg_quiz = format_quiz_message(item)
+             else:
+                 print("AI Quiz failed. Switching to local backup...")
         
-        elif local_data:
+        if (not use_ai or not ai_success) and local_data:
+            print("Using Local Data for Quiz...")
             selection = pick_random_item(local_data)
             if selection:
                 cat, item = selection
